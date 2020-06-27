@@ -4,9 +4,11 @@
         v-if="option.column"
         :data="data.data"
         :option="option"
+        :page.sync="page"
         @row-save="create"
         @row-update="update"
         @row-del="remove"
+        @on-load="changePage"
         ></avue-crud>
     </div>    
 </template>
@@ -17,8 +19,22 @@ import {Vue,Component, Prop } from 'vue-property-decorator'
 @Component({})
 export default class ResourceList extends Vue{
     @Prop(String) resource:string
-    data = {};
-    option = {};
+    data: any = {};
+    option: any = {};
+    page: any = {
+        pageSize:5,
+        pageSizes:[5,10],
+        total:0,
+    };
+    query: any = {
+        limit:2
+    } 
+
+    async changePage({pageSize,currentPage}){
+        this.query.page = currentPage;
+        this.query.limit = pageSize;
+        this.fetch()
+    }
 
     async fetchOption(){
         const res = await this.$http.get(`${this.resource}/option`)
@@ -26,8 +42,13 @@ export default class ResourceList extends Vue{
     }
 
     async fetch(){
-       const res = await this.$http.get(`${this.resource}`)
-       this.data = res.data
+       const res = await this.$http.get(`${this.resource}`,{
+           params:{
+               query:this.query
+           }
+       })
+       this.page.total = res.data.total;
+       this.data = res.data;
     }
 
     async create(row,done){
@@ -54,7 +75,7 @@ export default class ResourceList extends Vue{
             return
         }
        
-        await this.$http.delete(`courses/${row._id}`)
+        await this.$http.delete(`${this.resource}/${row._id}`)
         this.$message.success('删除成功')
         this.fetch()
     }
