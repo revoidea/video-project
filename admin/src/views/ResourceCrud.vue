@@ -9,12 +9,15 @@
         @row-update="update"
         @row-del="remove"
         @on-load="changePage"
+        @sort-change="changeSort"
+        @search-change="search"
         ></avue-crud>
     </div>    
 </template>
 <script lang="ts">
 
 import {Vue,Component, Prop } from 'vue-property-decorator'
+
 
 @Component({})
 export default class ResourceList extends Vue{
@@ -36,6 +39,31 @@ export default class ResourceList extends Vue{
         this.fetch()
     }
 
+    //点击字段排序
+    async changeSort({prop,order}){
+        if(!order){
+            this.query.sort = null
+        }else{
+            this.query.sort = {
+                [prop] : order === 'ascending' ? 1 :-1
+            }
+        }
+        this.fetch()
+    }
+
+    async search(where,done){
+        //this.query.where = where
+        //模糊查询
+        for(let k in where){
+            const field = this.option.column.find(v => v.prop === k)
+            if(field.regex){
+                where[k] = {$regex:where[k]}
+            }
+        }
+        this.query.where = where
+        this.fetch()
+        done()
+    }
     async fetchOption(){
         const res = await this.$http.get(`${this.resource}/option`)
         this.option = res.data
