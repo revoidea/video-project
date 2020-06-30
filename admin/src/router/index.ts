@@ -6,7 +6,6 @@ import Main from '../views/Main.vue'
 // import CourseEdit from '../views/courses/CourseEdit.vue'
 import ResourceCrud from '../views/ResourceCrud.vue'
 
-
 Vue.use(VueRouter)
 
   const routes:RouteConfig[] = [

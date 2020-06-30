@@ -22,7 +22,7 @@ export class CoursesController {
             title:"课程管理",
             column:[
                 {prop:"name",label:"课程名称",sortable:true, search:true,regex:true,row:true},
-                {prop:"cover",label:"课程封面图",type: 'upload',listType: 'picture-img',row:true, action: '/upload'}
+                {prop:"cover",label:"课程封面图",width:120, type: 'upload',listType: 'picture-img',action:'upload',row:true}
             ]
         }
     }

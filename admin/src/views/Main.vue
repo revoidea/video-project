@@ -48,7 +48,6 @@ export default class Main extends Vue {
         items:[
           { title:'首页', path:'/'},
           { title:'用户管理', path:'/users/list' }
-          
         ]
       }
     ]
