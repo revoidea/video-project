@@ -1,4 +1,5 @@
-import { prop, modelOptions } from "@typegoose/typegoose";
+import { prop, modelOptions, Ref } from "@typegoose/typegoose";
+import { Course } from "./course.model";
 
 
 @modelOptions({
@@ -12,4 +13,7 @@ export class Episode {
 
     @prop()
     file:string
+
+    @prop({ref:'Course'})
+    course:Ref<Course>
 }

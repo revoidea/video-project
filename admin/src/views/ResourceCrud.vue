@@ -21,7 +21,7 @@ import {Vue,Component, Prop } from 'vue-property-decorator'
 
 @Component({})
 export default class ResourceList extends Vue{
-    @Prop(String) resource:string
+    @Prop(String) resource !:string
     data: any = {};
     option: any = {};
     page: any = {
@@ -96,7 +96,7 @@ export default class ResourceList extends Vue{
         done()
     }
 
-    async remove(row:object){
+    async remove(row){
         try {
             await this.$confirm('是否确认删除？')
         } catch (error) {

@@ -21,7 +21,7 @@ export class CoursesController {
         return {
             title:"课程管理",
             column:[
-                {prop:"name",label:"课程名称",sortable:true, search:true,regex:true,row:true},
+                {prop:"name",label:"课程名称",sortable:true, search:true,regex:true,span:24,row:true},
                 {prop:"cover",label:"课程封面图",width:120, type: 'upload',listType: 'picture-img',action:'upload',row:true}
             ]
         }
