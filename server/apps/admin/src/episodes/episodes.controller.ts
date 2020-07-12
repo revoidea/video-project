@@ -18,8 +18,6 @@ export class EpisodesController {
     ){}
 
     
-
-
     @Get('option')
     async option(){
 
@@ -32,7 +30,7 @@ export class EpisodesController {
             translate:false,
             column:[
                 {prop:"course",label:"所属课程",type:'select',dicData:courses,row:true},
-                {prop:"name",label:"课程名称",span:24},
+                {prop:"name",label:"课时名称",span:24},
                 {prop:"file",label:"视频文件",span:24,width:'120px',type:'upload',listType:'picture-img',action:'/upload'}
                
             ]
