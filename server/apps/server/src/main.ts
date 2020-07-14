@@ -11,9 +11,10 @@ async function bootstrap() {
   app.enableCors();
 
   const options = new DocumentBuilder()
-    .setTitle('全栈之巅视频网站-API')
-    .setDescription('供客户端调用的服务端API')
+    .setTitle('全栈之巅视频网站-前端API')
+    .setDescription('供网站和APP调用的服务端API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
