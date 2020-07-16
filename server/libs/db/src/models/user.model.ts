@@ -1,7 +1,9 @@
-import { prop, ModelOptions } from '@typegoose/typegoose';
+import { prop, ModelOptions, DocumentType } from '@typegoose/typegoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { hashSync } from 'bcryptjs';
+import { type } from 'os';
 
+export type UserDocument = DocumentType<User>;
 //定义模型的其他属性
 @ModelOptions({
   schemaOptions: {
