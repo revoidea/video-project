@@ -17,7 +17,7 @@ import { CurrentUser } from './current-user.decorator';
 @Controller('auth')
 @ApiTags('用户')
 export class AuthController {
-  constructor(
+  /* constructor(
     private jwtService: JwtService,
     @InjectModel(User) private userModel: ReturnModelType<typeof User>,
   ) {}
@@ -48,5 +48,32 @@ export class AuthController {
   @ApiBearerAuth()
   async user(@CurrentUser() user: UserDocument) {
     return user;
+  }*/
+
+  constructor(
+    @InjectModel(User) private userModel: ReturnModelType<typeof User>,
+  ) {}
+
+  @Post('register')
+  @ApiOperation({ summary: '注册' })
+  async register(@Body() dto: RegisterDto) {
+    const { username, password } = dto;
+    const user = await this.userModel.create({
+      username,
+      password,
+    });
+    return user;
+  }
+
+  @Post('login')
+  @ApiOperation({ summary: '登陆' })
+  async login(@Body() dto) {
+    return dto;
+  }
+
+  @Get('user')
+  @ApiOperation({ summary: '获取用户信息' })
+  async user() {
+    return {};
   }
 }
