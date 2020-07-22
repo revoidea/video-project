@@ -36,9 +36,10 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '登陆' })
   @UseGuards(AuthGuard('local'))
-  async login(@Body() dto: LoginDto, @CurrentUser() user: UserDocument) {
+  async login(@Body() dto: LoginDto, @Req() req) {
+    //@CurrentUser() user: UserDocument
     return {
-      token: this.jwtService.sign(String(user._id)),
+      token: this.jwtService.sign(String(req.user._id)),
     };
   }
 
@@ -46,34 +47,8 @@ export class AuthController {
   @ApiOperation({ summary: '用户信息' })
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
-  async user(@CurrentUser() user: UserDocument) {
-    return user;
+  async user(@Req() req) {
+    //@CurrentUser() user: UserDocument
+    return req.user;
   }
-
-  /*constructor(
-    @InjectModel(User) private userModel: ReturnModelType<typeof User>,
-  ) {}
-
-  @Post('register')
-  @ApiOperation({ summary: '注册' })
-  async register(@Body() dto: RegisterDto) {
-    const { username, password } = dto;
-    const user = await this.userModel.create({
-      username,
-      password,
-    });
-    return user;
-  }
-
-  @Post('login')
-  @ApiOperation({ summary: '登陆' })
-  async login(@Body() dto) {
-    return dto;
-  }
-
-  @Get('user')
-  @ApiOperation({ summary: '获取用户信息' })
-  async user() {
-    return {};
-  }*/
 }
