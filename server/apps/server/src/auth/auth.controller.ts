@@ -36,10 +36,9 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '登陆' })
   @UseGuards(AuthGuard('local'))
-  async login(@Body() dto: LoginDto, @Req() req) {
-    //@CurrentUser() user: UserDocument
+  async login(@Body() dto: LoginDto, @CurrentUser() user: UserDocument) {
     return {
-      token: this.jwtService.sign(String(req.user._id)),
+      token: this.jwtService.sign(String(user._id)),
     };
   }
 
@@ -47,8 +46,7 @@ export class AuthController {
   @ApiOperation({ summary: '用户信息' })
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
-  async user(@Req() req) {
-    //@CurrentUser() user: UserDocument
-    return req.user;
+  async user(@CurrentUser() user: UserDocument) {
+    return user;
   }
 }

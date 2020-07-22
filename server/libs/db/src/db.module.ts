@@ -1,34 +1,31 @@
 import { Module, Global } from '@nestjs/common';
 import { DbService } from './db.service';
-import { TypegooseModule } from 'nestjs-typegoose'
+import { TypegooseModule } from 'nestjs-typegoose';
 import { User } from './models/user.model';
 import { Course } from './models/course.model';
 import { Episode } from './models/episode.model';
+import { Action } from './models/action.model';
 
-const models = TypegooseModule.forFeature([
-  User,
-  Course,
-  Episode
-])
+const models = TypegooseModule.forFeature([User, Course, Episode, Action]);
 
 @Global()
 @Module({
-  imports:[
+  imports: [
     //异步加载
     TypegooseModule.forRootAsync({
-      useFactory(){
+      useFactory() {
         return {
-          uri:process.env.DB,
-          useNewUrlParser:true,
-          useUnifiedTopology:true,
-          useCreateIndex:true,
-          useFindAndModify:false
-        }
-      }
+          uri: process.env.DB,
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useCreateIndex: true,
+          useFindAndModify: false,
+        };
+      },
     }),
-    models
+    models,
   ],
   providers: [DbService],
-  exports: [DbService,models],
+  exports: [DbService, models],
 })
 export class DbModule {}
