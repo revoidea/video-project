@@ -1,5 +1,5 @@
 <template>
-  <v-btn flat icon :color="status ? 'pink' : 'null'" @click="toggle">
+  <v-btn icon :color="status ? 'pink' : 'null'" @click="toggle">
     <v-icon>mdi-heart</v-icon>
   </v-btn>
 </template>
@@ -8,17 +8,20 @@ export default {
   props: {
     type: {
       type: String,
-      requierd: true,
+      required: true,
     },
     object: {
       type: String,
-      requierd: true,
+      required: true,
     },
   },
   data() {
     return {
       status: false,
     }
+  },
+  mounted() {
+    this.getStatus()
   },
   methods: {
     async getStatus() {
@@ -40,9 +43,6 @@ export default {
       })
       this.status = ret.status
     },
-  },
-  mounted() {
-    this.getStatus()
   },
 }
 </script>
