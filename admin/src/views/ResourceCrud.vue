@@ -13,7 +13,6 @@
       @search-change="search"
       v-model="obj"
       :upload-before="uploadBefore"
-      :update-before="updateBefore"
       ref="avueCrud"
     ></avue-crud>
   </div>
@@ -119,6 +118,7 @@ export default class ResourceList extends Vue {
       headers: { 'Content-Type': 'multipart/form-data;charset=UTF-8' }
     })
     this.obj.cover = res.data.url
+    this.obj['cover'] = res.data.url
     done()
   }
 

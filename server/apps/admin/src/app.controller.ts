@@ -21,10 +21,12 @@ export class AppController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile('file') file) {
-    //return file;
-    const PORT = process.env.ADMIN_PORT || 3000;
+    // const PORT = process.env.ADMIN_PORT || 3000;
+    // return {
+    //   url: `http://localhost:${PORT}/uploads/${file.filename}`,
+    // };
     return {
-      url: `http://localhost:${PORT}/uploads/${file.filename}`,
+      url: file.url,
     };
   }
 }
